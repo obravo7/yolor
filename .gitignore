@@ -34,3 +34,6 @@ coverage.xml
 
 # trained models
 *.pt
+
+# PyCharm
+.idea
