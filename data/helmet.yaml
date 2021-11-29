@@ -1,6 +1,10 @@
 # train and val datasets (image directory or *.txt file with image paths)
-train: ../helmet/train.txt    #
-val: ../helmet/val.txt        #
+# train: ../helmet/train.txt
+# val: ../helmet/val.txt
+
+# 90/10 split
+train: ../helmet/images/train  # 623 images
+val: ../helmet/images/val      # 70 images
 # test: None  # video is training set.
 
 # number of classes
