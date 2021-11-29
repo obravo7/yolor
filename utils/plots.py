@@ -91,10 +91,19 @@ def output_to_target(output, width, height):
     if isinstance(output, torch.Tensor):
         output = output.cpu().numpy()
 
+    print(f'[DEBUG]\n'
+          f'output: type={type(output)}\n'
+          f'width: type={type(width)}: width={width}\n'
+          f'height: type={type(height)}: height={height}\n')
     targets = []
     for i, o in enumerate(output):
         if o is not None:
             for pred in o:
+                print(f'\n\n[DEBUG]  pred variable:\n'
+                      f'pred: type={type(pred)}\n')
+                # https://github.com/WongKinYiu/yolor/commit/840e56e86e69692c6c1cac1a32caf1c59ff6dbba
+                pred = pred.cpu()
+                print(f'pred=pred.cpu(): type={type(pred)}')
                 box = pred[:4]
                 w = (box[2] - box[0]) / width
                 h = (box[3] - box[1]) / height
