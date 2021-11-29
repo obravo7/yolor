@@ -393,7 +393,7 @@ class LoadImagesAndLabels(Dataset):  # for training/testing
                               f't:: type={type(t)}')
                         for item in t:
                             print(f'item in t: {item}\n'
-                                  f'item in f: {item.replace("./", parent) if x.startswith("./") else item}')
+                                  f'item in f: {item.replace("./", parent) if item.startswith("./") else item}')
                         f += [x.replace('./', parent) if x.startswith('./') else x for x in t]  # local to global path
                 else:
                     raise Exception('%s does not exist' % p)
