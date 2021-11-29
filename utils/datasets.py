@@ -372,15 +372,28 @@ class LoadImagesAndLabels(Dataset):  # for training/testing
             return [x.replace(sa, sb, 1).replace(x.split('.')[-1], 'txt') for x in img_paths]
 
         try:
+            print(f'\n\n\n[INFO]\n'
+                  f'datsets.LoadImagesAndLabels')
             f = []  # image files
             for p in path if isinstance(path, list) else [path]:
+                print(f'p = Path(p):: path={path}')
                 p = Path(p)  # os-agnostic
                 if p.is_dir():  # dir
+                    print(f'p.is_dir()....(file is dir)')
                     f += glob.glob(str(p / '**' / '*.*'), recursive=True)
                 elif p.is_file():  # file
+                    print(f'p is a file\n'
+                          f'p.is_file()={p.is_file()}')
                     with open(p, 'r') as t:
                         t = t.read().splitlines()
                         parent = str(p.parent) + os.sep
+                        print(f'parent = str(p.parent) + os.sep\n'
+                              f'parent = {parent}')
+                        print(f't=t.read().splitlines()\n'
+                              f't:: type={type(t)}')
+                        for item in t:
+                            print(f'item in t: {item}\n'
+                                  f'item in f: {item.replace("./", parent) if x.startswith("./") else item}')
                         f += [x.replace('./', parent) if x.startswith('./') else x for x in t]  # local to global path
                 else:
                     raise Exception('%s does not exist' % p)
