@@ -69,7 +69,18 @@ def train(hyp, opt, device, tb_writer=None, wandb=None):
         check_dataset(data_dict)  # check
     train_path = data_dict['train']
     test_path = data_dict['val']
+
+    print(f'\n\n'
+          f'train_path: {train_path}\n'
+          f'test_path:  {test_path}\n\n')
+
     nc, names = (1, ['item']) if opt.single_cls else (int(data_dict['nc']), data_dict['names'])  # number classes, names
+
+    print(f'\n'
+          f'number classes + names\n'
+          f'number of classes: {nc}\n'
+          f'names: {names}\n')
+
     assert len(names) == nc, '%g names found for nc=%g dataset in %s' % (len(names), nc, opt.data)  # check
 
     # Model
