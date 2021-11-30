@@ -37,3 +37,6 @@ coverage.xml
 
 # PyCharm
 .idea
+
+# test video
+*.mp4
