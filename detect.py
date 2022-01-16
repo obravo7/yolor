@@ -43,11 +43,11 @@ def detect(save_img=False):
 
     # Load model
     # model = Darknet(cfg, imgsz).cuda()
+
     # allow model init with CPU
     model = Darknet(cfg, imgsz) if device.type == 'cpu' else Darknet(cfg, imgsz).cuda()
     model.load_state_dict(torch.load(weights[0], map_location=device)['model'])
-    #model = attempt_load(weights, map_location=device)  # load FP32 model
-    #imgsz = check_img_size(imgsz, s=model.stride.max())  # check img_size
+
     model.to(device).eval()
     if half:
         model.half()  # to FP16
@@ -78,6 +78,10 @@ def detect(save_img=False):
     img = torch.zeros((1, 3, imgsz, imgsz), device=device)  # init img
     _ = model(img.half() if half else img) if device.type != 'cpu' else None  # run once
     for path, img, im0s, vid_cap in dataset:
+        # path
+        # img = letterbox(img0)[0]  <-- letterboxed image.  Shape = (Channels, Height, Width)
+        # img0 = cv2.imread(path)  original image
+        # vid_cap: video capture
         img = torch.from_numpy(img).to(device)
         img = img.half() if half else img.float()  # uint8 to fp16/32
         img /= 255.0  # 0 - 255 to 0.0 - 1.0
@@ -168,6 +172,7 @@ if __name__ == '__main__':
     parser.add_argument('--output', type=str, default='inference/output', help='output folder')  # output folder
     parser.add_argument('--img-size', type=int, default=1280, help='inference size (pixels)')
     parser.add_argument('--conf-thres', type=float, default=0.4, help='object confidence threshold')
+
     parser.add_argument('--iou-thres', type=float, default=0.5, help='IOU threshold for NMS')
     parser.add_argument('--device', default='', help='cuda device, i.e. 0 or 0,1,2,3 or cpu')
     parser.add_argument('--view-img', action='store_true', help='display results')

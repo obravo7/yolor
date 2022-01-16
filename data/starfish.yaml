@@ -1,0 +1,14 @@
+# train and val datasets (image directory or *.txt file with image paths)
+# train: ../helmet/train.txt
+# val: ../helmet/val.txt
+
+# 90/10 split
+train: ../startfish_dataset/images/train
+val: ../starfish_dataset/images/val
+# test: None  # video is training set.
+
+# number of classes
+nc: 1
+
+# class names
+names: ['starfish']
