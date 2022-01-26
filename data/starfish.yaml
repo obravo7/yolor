@@ -3,8 +3,8 @@
 # val: ../helmet/val.txt
 
 # 90/10 split
-train: startfish_dataset/images/train
-val: drive/starfish_dataset/images/val
+train: startish_dataset/images/train
+val: starfish_dataset/images/val
 # test: None  # video is training set.
 
 # number of classes
